@@ -3,7 +3,7 @@ package com.dnsouzadev.docker_manager.services;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.Container;
 import com.github.dockerjava.api.model.Image;
-import org.jvnet.hk2.annotations.Service;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -21,6 +21,10 @@ public class DockerService {
 
     public List<Image> listImages() {
         return dockerClient.listImagesCmd().exec();
+    }
+
+    public List<Image> filterImages(String filterName) {
+        return dockerClient.listImagesCmd().withImageNameFilter(filterName).exec();
     }
 
     public void startContainer(String containerId) {
