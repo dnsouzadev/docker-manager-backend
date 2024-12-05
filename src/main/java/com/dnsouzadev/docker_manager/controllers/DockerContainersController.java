@@ -9,14 +9,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/containers")
 public class DockerContainersController {
-
     private final DockerService dockerService;
 
     public DockerContainersController(DockerService dockerService) {
         this.dockerService = dockerService;
     }
 
-    @GetMapping
+    @GetMapping("")
     public List<Container> listContainers(@RequestParam(required = false, defaultValue = "true") boolean showAll) {
         return dockerService.listContainers(showAll);
     }
@@ -36,9 +35,8 @@ public class DockerContainersController {
         dockerService.deleteContainer(id);
     }
 
-    @PostMapping
+    @PostMapping("")
     public void createContainer(@RequestParam String imageName) {
         dockerService.createContainer(imageName);
     }
-
 }

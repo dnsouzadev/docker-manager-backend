@@ -12,21 +12,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/images")
 public class DockerImagesController {
-
     private final DockerService dockerService;
 
     public DockerImagesController(DockerService dockerService) {
         this.dockerService = dockerService;
     }
 
-    @GetMapping
+    @GetMapping("")
     public List<Image> listImages() {
         return dockerService.listImages();
     }
 
     @GetMapping("/filter")
-    public List<Image> filterImages(@RequestParam(required = false, defaultValue = "image-") String filterName) {
+    public List<Image> listImages(@RequestParam(required = false, defaultValue = "image-") String filterName) {
         return dockerService.filterImages(filterName);
     }
-
 }

@@ -3,10 +3,14 @@ package com.dnsouzadev.docker_manager.config;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
+import com.github.dockerjava.core.RemoteApiVersion;
 import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+
+import java.time.Duration;
 
 @Configuration
 public class DockerClientConfig {
@@ -20,8 +24,7 @@ public class DockerClientConfig {
                 .createDefaultConfigBuilder();
 
         if (this.dockerSocketPath != null && this.dockerSocketPath.startsWith("unix://")) {
-            dockerClientBuilder.withDockerHost(this.dockerSocketPath)
-                    .withDockerTlsVerify(false);
+            dockerClientBuilder.withDockerHost(this.dockerSocketPath);
         }
 
         DefaultDockerClientConfig dockerClientConfig = dockerClientBuilder.build();
